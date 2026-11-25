@@ -1,0 +1,311 @@
+
+/* General page styling */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: #F7F4ED;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    line-height: 1.8;
+}
+
+h1, h2, h3 {
+    font-family: Georgia, serif;
+    color: #344E41;
+}
+
+h2 {
+    font-size: 34px;
+    text-align: center;
+    margin-top: 0;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Navigation */
+
+.navigation {
+    background-color: #344E41;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.navigation .brand {
+    font-family: Georgia, serif;
+    font-size: 25px;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+
+/* Hero background */
+
+.hero {
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.35),
+        rgba(0, 0, 0, 0.45)
+    ), url("../images/machupicchu.jpg");
+
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    padding: 30px;
+}
+
+.hero h1 {
+    color: white;
+    font-size: 90px;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 24px;
+    margin: 10px 0 25px;
+}
+
+.hero .subtitle {
+    font-size: 13px;
+    letter-spacing: 5px;
+}
+
+/* Buttons */
+
+.button {
+    display: inline-block;
+    background-color: #344E41;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #526B4E;
+}
+
+/* On-page navigation */
+
+.section-links {
+    background-color: #E4E9DC;
+    padding: 20px;
+    text-align: center;
+}
+
+.section-links a {
+    display: inline-block;
+    color: #344E41;
+    text-decoration: none;
+    margin: 5px 15px;
+    font-weight: bold;
+}
+
+.section-links a:hover {
+    text-decoration: underline;
+}
+
+/* Main content sections */
+
+.content-section {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.intro {
+    text-align: center;
+}
+
+/* Personal story */
+
+.story-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.story-layout img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Destination cards */
+
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.destination-card {
+    background-color: #F7F4ED;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.destination-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.destination-card h3 {
+    padding: 0 20px;
+    margin-bottom: 5px;
+}
+
+.destination-card p {
+    padding: 0 20px 20px;
+}
+
+/* Nested activity list */
+
+.activity-list {
+    background-color: #E4E9DC;
+    padding: 25px 45px;
+    border-radius: 10px;
+}
+
+.activity-list > li {
+    font-weight: bold;
+    color: #344E41;
+    margin-bottom: 15px;
+}
+
+.activity-list ul {
+    font-weight: normal;
+    color: #333333;
+}
+
+/* Peruvian cuisine */
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.food-card {
+    background-color: #F7F4ED;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #A3B18A;
+}
+
+.food-card h3 {
+    margin-top: 0;
+}
+
+/* Media sections */
+
+.media-placeholder {
+    background-color: #E4E9DC;
+    padding: 80px 20px;
+    text-align: center;
+    color: #344E41;
+    border-radius: 10px;
+}
+
+/* Travel planner */
+
+.planner-section {
+    background-color: #E4E9DC;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+/* Footer */
+
+.footer {
+    background-color: #344E41;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.footer a {
+    color: white;
+    margin: 10px;
+}
+
+/* Responsive layout for smaller screens */
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 350px;
+    }
+
+    .hero h1 {
+        font-size: 60px;
+    }
+
+    .destination-grid,
+    .story-layout,
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-section {
+        margin: 20px 15px;
+        padding: 25px;
+    }
+}
+/* Responsive YouTube video */
+
+.video-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 25px auto;
+    aspect-ratio: 16 / 9;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+}/* Interactive Tableau visualization */
+
+.tableau-container {
+    width: 100%;
+    margin: 25px auto;
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+.tableau-container iframe {
+    max-width: 100%;
+}
