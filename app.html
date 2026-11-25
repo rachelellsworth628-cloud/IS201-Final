@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Peru | Travel Planner</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background-color: #F7F4ED;
+            color: #333333;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: Georgia, serif;
+            color: #344E41;
+        }
+
+        nav {
+            background-color: #344E41;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .brand {
+            font-family: Georgia, serif;
+            font-size: 24px;
+        }
+
+        header {
+            background-image: linear-gradient(
+                rgba(0, 0, 0, 0.4),
+                rgba(0, 0, 0, 0.5)
+            ), url("images/machupicchu.jpg");
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 90px 20px;
+            color: white;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 55px;
+            margin: 10px 0;
+        }
+
+        header p {
+            font-size: 20px;
+        }
+
+        .subtitle {
+            letter-spacing: 4px;
+            font-size: 12px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            background-color: white;
+            padding: 35px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .panel h2 {
+            margin-top: 0;
+            font-size: 30px;
+        }
+
+        .field {
+            margin-bottom: 25px;
+        }
+
+        .field-title {
+            display: block;
+            font-weight: bold;
+            color: #344E41;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #A3B18A;
+            border-radius: 7px;
+            background-color: #F7F4ED;
+            font-size: 16px;
+            color: #333333;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .option {
+            background-color: #F7F4ED;
+            padding: 13px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            accent-color: #344E41;
+            margin-right: 8px;
+        }
+
+        button {
+            background-color: #344E41;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 14px 24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #526B4E;
+        }
+
+        .generate-button {
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .summary-card {
+            background-color: #E4E9DC;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-card strong {
+            display: block;
+            color: #344E41;
+            font-size: 25px;
+        }
+
+        .day-card {
+            background-color: #F7F4ED;
+            border-left: 5px solid #A3B18A;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .day-card h3 {
+            margin-top: 0;
+        }
+
+        .day-card p {
+            margin: 8px 0;
+        }
+
+        .budget-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #DDDDDD;
+        }
+
+        .tips {
+            background-color: #E4E9DC;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .secondary-button {
+            background-color: #A3B18A;
+            color: #24382D;
+        }
+
+        .note {
+            font-size: 13px;
+            color: #666666;
+        }
+
+        footer {
+            background-color: #344E41;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer a {
+            color: white;
+        }
+
+        @media (max-width: 650px) {
+            header h1 {
+                font-size: 38px;
+            }
+
+            .options,
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 22px;
+            }
+        }
+
+        @media print {
+            nav, header, footer, #planner-form, .actions {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .panel {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .day-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a class="brand" href="scratch.html">Discover Peru</a>
+        <div>
+            <a href="scratch.html">Back to Peru</a>
+            <a href="index.html">Professional Website</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="subtitle">YOUR NEXT ADVENTURE AWAITS</span>
+        <h1>Peru Travel Planner</h1>
+        <p>Create an adventure designed just for you.</p>
+    </header>
+
+    <main class="container">
+
+        <form class="panel" id="planner-form">
+
+            <h2>Design Your Trip</h2>
+            <p>
+                Tell us about your ideal vacation and discover
+                a personalized Peruvian adventure.
+            </p>
+
+            <div class="field">
+                <label class="field-title" for="destination">
+                    Where would you like to go?
+                </label>
+
+                <select id="destination">
+                    <option value="lima">Lima</option>
+                    <option value="cusco">Cusco & Sacred Valley</option>
+                    <option value="machu">Machu Picchu Region</option>
+                    <option value="all" selected>All Destinations</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label class="field-title" for="days">
+                    How long is your trip?
+                </label>
+
+                <select id="days">
+                    <option value="3">3 days</option>
+                    <option value="5">5 days</option>
+                    <option value="7" selected>7 days</option>
+                    <option value="10">10 days</option>
+                    <option value="14">14 days</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label class="field-title" for="budget">
+                    What is your travel budget?
+                </label>
+
+                <select id="budget">
+                    <option value="50">Budget-friendly ($50/day)</option>
+                    <option value="100" selected>Comfortable ($100/day)</option>
+                    <option value="200">Luxury ($200/day)</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <span class="field-title">
+                    What experiences interest you?
+                </span>
+
+                <div class="options">
+
+                    <label class="option">
+                        <input type="checkbox" name="interest"
+                               value="culture" checked>
+                        Culture & History
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" name="interest"
+                               value="food" checked>
+                        Food & Cuisine
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" name="interest"
+                               value="adventure">
+                        Adventure
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" name="interest"
+                               value="nature">
+                        Nature
+                    </label>
+
+                    <label class="option">
+                        <input type="checkbox" name="interest"
+                               value="relaxation">
+                        Relaxation
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="field-title" for="pace">
+                    What is your preferred travel pace?
+                </label>
+
+                <select id="pace">
+                    <option value="relaxed">Relaxed</option>
+                    <option value="balanced" selected>Balanced</option>
+                    <option value="active">Active</option>
+                </select>
+            </div>
+
+            <button type="submit" class="generate-button">
+                Generate My Itinerary
+            </button>
+
+        </form>
+
+        <div class="panel" id="results" hidden>
+            <h2>Your Personalized Itinerary</h2>
+            <div id="summary"></div>
+            <div id="itinerary"></div>
+
+            <h2>Estimated Budget</h2>
+            <div id="budget-breakdown"></div>
+
+            <p class="note">
+                All prices are illustrative estimates in US dollars
+                per person, not live travel quotes. International
+                flights, intercity transportation, Machu Picchu
+                tickets and major tours are not included.
+            </p>
+
+            <div class="tips">
+                <h3>Helpful Travel Tips</h3>
+                <div id="travel-tips"></div>
+            </div>
+
+            <div class="actions">
+                <button onclick="window.print()">
+                    Print My Itinerary
+                </button>
+
+                <button class="secondary-button"
+                        onclick="resetPlanner()">
+                    Start Over
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Created by Rachel Ellsworth | IS 201 Final Project</p>
+        <a href="scratch.html">Explore More About Peru</a>
+    </footer>
+
+    <script>
+
+        // Destination activity database
+
+        const destinations = {
+
+            lima: {
+                name: "Lima",
+
+                culture: [
+                    "Explore the historic center of Lima",
+                    "Visit the Larco Museum",
+                    "Discover the artistic streets of Barranco",
+                    "Explore the Huaca Pucllana archaeological site"
+                ],
+
+                food: [
+                    "Try fresh Peruvian ceviche",
+                    "Visit a local food market",
+                    "Enjoy authentic lomo saltado",
+                    "Try a traditional Peruvian cooking class"
+                ],
+
+                adventure: [
+                    "Take a surfing lesson in Miraflores",
+                    "Cycle along the coastal paths",
+                    "Explore the city on a guided walking tour"
+                ],
+
+                nature: [
+                    "Walk along the Miraflores Malecón",
+                    "Visit the coastal parks",
+                    "Explore the gardens of Parque Kennedy"
+                ],
+
+                relaxation: [
+                    "Enjoy a coffee overlooking the Pacific Ocean",
+                    "Watch the sunset from the coastline",
+                    "Spend time exploring local cafés"
+                ]
+            },
+
+            cusco: {
+                name: "Cusco & Sacred Valley",
+
+                culture: [
+                    "Explore the Plaza de Armas",
+                    "Visit Qorikancha",
+                    "Discover the ruins of Sacsayhuamán",
+                    "Visit the traditional town of Chinchero",
+                    "Explore the historic streets of San Blas"
+                ],
+
+                food: [
+                    "Explore the San Pedro Market",
+                    "Try traditional Andean cuisine",
+                    "Enjoy a Peruvian chocolate tasting",
+                    "Visit a local family-run restaurant"
+                ],
+
+                adventure: [
+                    "Explore the Sacred Valley with a local guide",
+                    "Visit the terraces of Moray",
+                    "Consider a guided Rainbow Mountain trip after acclimatizing"
+                ],
+
+                nature: [
+                    "Admire the landscapes of the Sacred Valley",
+                    "Visit the Maras salt mines",
+                    "Enjoy scenic views of the Andes Mountains"
+                ],
+
+                relaxation: [
+                    "Enjoy a quiet afternoon in San Blas",
+                    "Relax at a local café",
+                    "Browse traditional artisan shops"
+                ]
+            },
+
+            machu: {
+                name: "Machu Picchu Region",
+
+                culture: [
+                    "Visit Machu Picchu with a reserved ticket",
+                    "Learn about the history of the Inca civilization",
+                    "Explore the town of Aguas Calientes"
+                ],
+
+                food: [
+                    "Try a local Peruvian restaurant",
+                    "Enjoy a traditional Andean meal",
+                    "Visit the local market in Aguas Calientes"
+                ],
+
+                adventure: [
+                    "Explore approved walking trails around town",
+                    "Consider a permitted mountain hike with advance reservations",
+                    "Take a guided nature walk"
+                ],
+
+                nature: [
+                    "Enjoy views of the surrounding cloud forest",
+                    "Admire the Urubamba River",
+                    "Explore the natural scenery around Aguas Calientes"
+                ],
+
+                relaxation: [
+                    "Enjoy the local thermal baths if open",
+                    "Relax at a café surrounded by mountains",
+                    "Spend a quiet afternoon in Aguas Calientes"
+                ]
+            }
+        };
+
+        // Generate a destination schedule
+
+        function getSchedule(destination, days) {
+
+            if (destination !== "all") {
+                return Array(days).fill(destination);
+            }
+
+            if (days < 7) {
+                return null;
+            }
+
+            const limaDays = Math.max(2, Math.floor(days * 0.3));
+            const machuDays = 2;
+            const cuscoDays = days - limaDays - machuDays - 1;
+
+            return [
+                ...Array(limaDays).fill("lima"),
+                ...Array(cuscoDays).fill("cusco"),
+                ...Array(machuDays).fill("machu"),
+                "cusco"
+            ];
+        }
+
+        // Select activities based on interests
+
+        function chooseActivities(city, interests, count, used) {
+
+            let pool = [];
+
+            interests.forEach(function(interest) {
+                pool.push(...destinations[city][interest]);
+            });
+
+            let available = pool.filter(function(activity) {
+                return !used.has(activity);
+            });
+
+            const selected = [];
+
+            while (selected.length < count && available.length > 0) {
+
+                const index = Math.floor(
+                    Math.random() * available.length
+                );
+
+                const activity = available.splice(index, 1)[0];
+
+                selected.push(activity);
+                used.add(activity);
+            }
+
+            return selected;
+        }
+
+        // Main itinerary generator
+
+        document.getElementById("planner-form")
+            .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const destination =
+                document.getElementById("destination").value;
+
+            const days = Number(
+                document.getElementById("days").value
+            );
+
+            const dailyBudget = Number(
+                document.getElementById("budget").value
+            );
+
+            const pace =
+                document.getElementById("pace").value;
+
+            let interests = Array.from(
+                document.querySelectorAll(
+                    'input[name="interest"]:checked'
+                )
+            ).map(function(input) {
+                return input.value;
+            });
+
+            if (interests.length === 0) {
+                interests = ["culture", "food", "nature"];
+            }
+
+            const schedule = getSchedule(destination, days);
+
+            if (!schedule) {
+                alert(
+                    "For all three destinations, please select " +
+                    "at least 7 days to allow time for travel " +
+                    "and altitude acclimatization."
+                );
+                return;
+            }
+
+            const activitiesPerDay = {
+                relaxed: 1,
+                balanced: 2,
+                active: 3
+            }[pace];
+
+            const total = dailyBudget * days;
+
+            const destinationName = destination === "all"
+                ? "Lima, Cusco & Machu Picchu"
+                : destinations[destination].name;
+
+            document.getElementById("summary").innerHTML = `
+                <p><strong>Destination:</strong> ${destinationName}</p>
+
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+                        <strong>${days}</strong>
+                        Days
+                    </div>
+
+                    <div class="summary-card">
+                        <strong>$${dailyBudget}</strong>
+                        Daily Budget
+                    </div>
+
+                    <div class="summary-card">
+                        <strong>$${total.toLocaleString()}</strong>
+                        Estimated Total
+                    </div>
+
+                </div>
+            `;
+
+            let itineraryHTML = "";
+            const usedActivities = new Set();
+            let machuVisited = false;
+
+            // Build each day of the itinerary
+
+            for (let i = 0; i < days; i++) {
+
+                const city = schedule[i];
+                const cityName = destinations[city].name;
+                const previousCity = schedule[i - 1];
+
+                let activities = [];
+
+                if (i === 0) {
+
+                    activities = [
+                        "Arrive and check into your accommodation",
+                        city === "cusco"
+                            ? "Rest and begin adjusting to the altitude"
+                            : "Enjoy a gentle walk and a local meal"
+                    ];
+
+                } else if (i === days - 1) {
+
+                    activities = [
+                        city !== previousCity
+                            ? "Return to " + cityName
+                            : "Enjoy a final breakfast and free time",
+                        "Prepare for your onward journey or departure"
+                    ];
+
+                } else if (city !== previousCity) {
+
+                    activities = [
+                        "Travel to " + cityName,
+                        "Check into your accommodation and rest"
+                    ];
+
+                    if (city === "cusco") {
+                        activities.push(
+                            "Take it easy while adjusting to the altitude"
+                        );
+                    }
+
+                } else if (
+                    city === "machu" && !machuVisited
+                ) {
+
+                    activities = [
+                        "Visit Machu Picchu with an advance reservation",
+                        "Enjoy the surrounding mountain scenery"
+                    ];
+
+                    machuVisited = true;
+
+                    usedActivities.add(
+                        "Visit Machu Picchu with a reserved ticket"
+                    );
+
+                } else if (
+                    city === "cusco" &&
+                    i >= 2 &&
+                    schedule[i - 2] !== "cusco"
+                ) {
+
+                    activities = [
+                        "Enjoy a gentle walk near the Plaza de Armas",
+                        "Rest, hydrate and continue acclimatizing"
+                    ];
+
+                } else {
+
+                    activities = chooseActivities(
+                        city,
+                        interests,
+                        activitiesPerDay,
+                        usedActivities
+                    );
+
+                    if (activities.length === 0) {
+                        activities = [
+                            "Enjoy free time exploring your favorite places"
+                        ];
+                    }
+                }
+
+                itineraryHTML += `
+                    <div class="day-card">
+
+                        <h3>Day ${i + 1} — ${cityName}</h3>
+
+                        ${activities.map(function(activity) {
+                            return "<p>• " + activity + "</p>";
+                        }).join("")}
+
+                    </div>
+                `;
+            }
+
+            document.getElementById("itinerary").innerHTML =
+                itineraryHTML;
+
+            // Estimated spending breakdown
+
+            const accommodation = total * 0.45;
+            const food = total * 0.30;
+            const transportation = total * 0.15;
+            const activities = total * 0.10;
+
+            document.getElementById("budget-breakdown").innerHTML = `
+
+                <div class="budget-row">
+                    <span>Accommodation</span>
+                    <strong>$${accommodation.toFixed(2)}</strong>
+                </div>
+
+                <div class="budget-row">
+                    <span>Food</span>
+                    <strong>$${food.toFixed(2)}</strong>
+                </div>
+
+                <div class="budget-row">
+                    <span>Local Transportation</span>
+                    <strong>$${transportation.toFixed(2)}</strong>
+                </div>
+
+                <div class="budget-row">
+                    <span>Everyday Activities</span>
+                    <strong>$${activities.toFixed(2)}</strong>
+                </div>
+
+                <div class="budget-row">
+                    <strong>Total Estimated Budget</strong>
+                    <strong>$${total.toFixed(2)}</strong>
+                </div>
+            `;
+
+            // Destination-specific travel advice
+
+            let tips = [
+                "Carry some Peruvian soles for small purchases.",
+                "Use reputable transportation providers.",
+                "Try local dishes and practice your Spanish.",
+                "Check opening hours and travel conditions before your trip."
+            ];
+
+            if (destination !== "lima") {
+
+                tips.push(
+                    "Allow time to adjust to the altitude before strenuous activities."
+                );
+
+                tips.push(
+                    "Reserve Machu Picchu tickets and transportation well in advance."
+                );
+            }
+
+            if (destination === "all") {
+                tips.push(
+                    "Arrange flights between Lima and Cusco and train or other authorized transport to Machu Picchu."
+                );
+            }
+
+            document.getElementById("travel-tips").innerHTML =
+                "<ul>" + tips.map(function(tip) {
+                    return "<li>" + tip + "</li>";
+                }).join("") + "</ul>";
+
+            document.getElementById("results").hidden = false;
+
+            document.getElementById("results").scrollIntoView({
+                behavior: "smooth"
+            });
+
+        });
+
+        // Reset the planner
+
+        function resetPlanner() {
+
+            document.getElementById("planner-form").reset();
+
+            document.getElementById("results").hidden = true;
+
+            document.getElementById("planner-form").scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+    </script>
+
+</body>
+</html>
